@@ -28,7 +28,7 @@ onBeforeUnmount(destroySmoothScroll)
 
 <template>
   <MotionConfig reduced-motion="user">
-    <a class="skip-link" href="#palavra" @click.prevent="scrollToSection('palavra')">{{ t('a11y.skip') }}</a>
+    <a class="skip-link" href="#encorajamento" @click.prevent="scrollToSection('encorajamento')">{{ t('a11y.skip') }}</a>
     <SplashScreen v-if="splash === 'show'" />
     <ScrollProgress />
     <CustomCursor />

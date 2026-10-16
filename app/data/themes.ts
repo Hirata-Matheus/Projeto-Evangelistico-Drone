@@ -69,4 +69,4 @@ export const THEMES: Theme[] = [
 export const PURPOSE_CHIP: ThemeChip = { bg: 'transparent', fg: '#201e1d', active: '#eee7db', border: '#201e1d' }
 
 /** Todas as âncoras da página, na ordem. Usadas nos atalhos /oracao → /#oracao. */
-export const SECTION_IDS = ['palavra', ...THEMES.map((t) => t.id), 'oracao', 'proposito', 'autorizacao']
+export const SECTION_IDS = [...THEMES.map((t) => t.id), 'oracao', 'proposito', 'autorizacao', 'palavra']

@@ -31,10 +31,10 @@ watch(
 <template>
   <div ref="root">
     <HeroSection />
-    <WordSection />
     <ThemeSection v-for="theme in THEMES" :key="theme.id" :theme="theme" />
     <PrayerSection />
     <PurposeSection />
     <ConsentSection />
+    <WordSection />
   </div>
 </template>

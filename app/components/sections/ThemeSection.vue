@@ -34,8 +34,9 @@ const vars = computed(() => {
         <p data-reveal class="m-0 max-w-[36ch] text-[clamp(18px,1.5vw,21px)] leading-[1.6] text-[--s-muted] text-pretty">{{ t(`${key}.text`) }}</p>
         <figure data-card class="mx-0 mb-0 mt-2 flex flex-col gap-3.5 rounded-blob bg-[--s-card] px-6 pb-5 pt-7">
           <blockquote class="m-0 text-[clamp(22px,1.9vw,27px)] font-semibold leading-[1.4] text-pretty">“{{ t(`${key}.verse.t`) }}”</blockquote>
-          <div class="flex items-center justify-between gap-3">
-            <figcaption class="ref text-[--s-ref]">{{ t(`${key}.verse.r`) }}</figcaption>
+          <!-- figcaption precisa ser filho direto do figure: ele mesmo é a linha com a referência e o botão -->
+          <figcaption class="flex items-center justify-between gap-3">
+            <span class="ref text-[--s-ref]">{{ t(`${key}.verse.r`) }}</span>
             <button
               type="button"
               class="icon-btn share-btn"
@@ -45,7 +46,7 @@ const vars = computed(() => {
             >
               <AppIcon name="share" />
             </button>
-          </div>
+          </figcaption>
         </figure>
       </div>
     </div>

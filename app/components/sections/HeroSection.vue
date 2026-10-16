@@ -123,10 +123,10 @@ useGsap(
       <div data-hero-fade class="self-start">
         <a
           v-magnetic
-          href="#palavra"
+          href="#encorajamento"
           class="pill bg-ceu-ink text-ceu-bg hover:bg-black"
           :data-cursor="t('cursor.go')"
-          @click.prevent="scrollToSection('palavra')"
+          @click.prevent="scrollToSection('encorajamento')"
         >
           <AppIcon name="arrow-down" />
           <span>{{ t('hero.cta') }}</span>

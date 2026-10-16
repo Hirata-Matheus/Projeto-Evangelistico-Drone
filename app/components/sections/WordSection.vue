@@ -34,7 +34,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section id="palavra" class="bg-ceu-bg px-[clamp(20px,5vw,64px)] pb-[clamp(56px,8vw,120px)] pt-[clamp(72px,10vw,140px)]">
+  <section id="palavra" class="bg-ceu-bg px-[clamp(20px,5vw,64px)] pb-[clamp(56px,8vw,120px)] pt-[clamp(24px,3vw,48px)]">
     <div class="mx-auto grid max-w-site grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] items-center gap-[clamp(28px,5vw,72px)]">
       <div class="flex flex-col gap-6 px-1">
         <h2 data-split class="display m-0 text-[clamp(40px,6vw,84px)] leading-none">{{ t('word.title') }}</h2>
