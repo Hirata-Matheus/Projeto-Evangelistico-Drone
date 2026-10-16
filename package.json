@@ -1,0 +1,33 @@
+{
+  "name": "palavra-do-ceu",
+  "private": true,
+  "type": "module",
+  "description": "Uma palavra do céu para você — página do QR Code do drone (@_hrdrone)",
+  "engines": {
+    "node": "^22.12.0 || ^24.11.0"
+  },
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.6.1",
+    "postcss": "^8.5.30",
+    "tailwindcss": "^3.4.19"
+  },
+  "dependencies": {
+    "@vueuse/core": "^15.0.0",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.27",
+    "motion-v": "^2.8.0",
+    "nuxt": "~4.3.1",
+    "vue": "^3.5.44",
+    "vue-i18n": "^11.4.14",
+    "vue-router": "^4.6.4"
+  },
+  "overrides": {
+    "vite": "~7.3.1"
+  }
+}

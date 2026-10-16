@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<style>
+html,body{margin:0;background:#f3f2f2;-webkit-text-size-adjust:100%}
+html.lenis,html.lenis body{height:auto}
+a{color:#7d5411;text-underline-offset:3px}
+a:hover{color:#5a3b0a}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" lang="pt-BR" style="min-height:100svh;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);overflow-x:hidden">
+
+<sc-if value="{{ splashShow }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeSplash }}" style="position:fixed;inset:0;z-index:50;background:#1f1d1c;color:#f3f2f2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:32px;text-align:center;transition:opacity .7s ease;opacity:{{ splashOpacity }};cursor:pointer">
+    <div style="width:64px;height:64px;border:1px solid #c28d41;border-radius:50%;display:flex;align-items:center;justify-content:center">
+      <div style="width:6px;height:6px;border-radius:50%;background:#e1ad66"></div>
+    </div>
+    <p style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:34px;line-height:1.15;max-width:12ch;text-wrap:balance">Uma palavra do céu para você</p>
+    <p style="margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#bab6b6">Toque para continuar</p>
+  </div>
+</sc-if>
+
+<header style="min-height:100svh;display:flex;flex-direction:column;padding:calc(20px + env(safe-area-inset-top)) 24px calc(28px + env(safe-area-inset-bottom));max-width:600px;margin:0 auto;position:relative">
+  <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-700);border-bottom:1px solid var(--color-divider);padding-bottom:12px">
+    <span>@_hrdrone</span>
+    <span>NVI</span>
+  </div>
+  <div data-parallax="" style="position:absolute;right:-90px;top:16svh;width:300px;height:300px;border:1px solid var(--color-accent-300);border-radius:50%;pointer-events:none"></div>
+  <div data-parallax="" style="position:absolute;right:-30px;top:calc(16svh + 60px);width:180px;height:180px;border:1px solid var(--color-accent-200);border-radius:50%;pointer-events:none"></div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:20px;position:relative">
+    <p style="margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">Você escaneou o QR Code do drone</p>
+    <h1 data-split="" style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:clamp(46px,13vw,72px);line-height:1.02;letter-spacing:-.02em;text-wrap:balance">Deus tem uma palavra para você hoje.</h1>
+    <p style="margin:0;font-size:17px;line-height:1.6;max-width:34ch;color:var(--color-neutral-800);text-wrap:pretty">Separe dois minutos e leia com calma. Cada palavra abaixo foi escolhida pensando em quem está do outro lado da tela.</p>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;margin-top:40px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-700)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a06f24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+    <span>Role para ler</span>
+  </div>
+</header>
+
+<main style="max-width:600px;margin:0 auto;padding:0 24px">
+
+  <section data-screen-label="01 Encorajamento" style="border-top:1px solid var(--color-divider);padding:64px 0 72px;display:flex;flex-direction:column;gap:28px">
+    <div data-reveal="" style="display:flex;align-items:baseline;gap:14px">
+      <span style="font-family:var(--font-heading);font-size:20px;color:var(--color-accent);font-variant-numeric:tabular-nums">I</span>
+      <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">Encorajamento</span>
+    </div>
+    <h2 data-reveal="" style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:clamp(36px,10vw,48px);line-height:1.05;text-wrap:balance">Não desista agora.</h2>
+    <p data-reveal="" style="margin:0;font-size:17px;line-height:1.65;text-align:justify;hyphens:auto">Talvez você esteja cansado de tentar. Deus não pede que você seja forte sozinho. Ele promete estar ao seu lado em cada passo, inclusive neste.</p>
+    <figure data-reveal="" style="margin:0;border-top:1px solid var(--color-accent-300);padding-top:20px;display:flex;flex-direction:column;gap:12px">
+      <blockquote style="margin:0;font-family:var(--font-heading);font-style:italic;font-size:26px;line-height:1.3;text-wrap:pretty">“Por isso não tema, pois estou com você; não tenha medo, pois sou o seu Deus. Eu o fortalecerei e o ajudarei; eu o segurarei com a minha mão direita vitoriosa.”</blockquote>
+      <figcaption style="margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">Isaías 41:10</figcaption>
+    </figure>
+    <figure data-reveal="" style="margin:0;border-top:1px solid var(--color-accent-300);padding-top:20px;display:flex;flex-direction:column;gap:12px">
+      <blockquote style="margin:0;font-family:var(--font-heading);font-style:italic;font-size:26px;line-height:1.3;text-wrap:pretty">“Seja forte e corajoso! Não se apavore nem desanime, pois o Senhor, o seu Deus, estará com você por onde você andar.”</blockquote>
+      <figcaption style="margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">Josué 1:9</figcaption>
+    </figure>
+  </section>
+
+  <section data-screen-label="02 Consolo" style="border-top:1px solid var(--color-divider);padding:64px 0 72px;display:flex;flex-direction:column;gap:28px">
+    <div data-reveal="" style="display:flex;align-items:baseline;gap:14px">
+      <span style="font-family:var(--font-heading);font-size:20px;color:var(--color-accent)">II</span>
+      <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">Consolo</span>
+    </div>
+    <h2 data-reveal="" style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:clamp(36px,10vw,48px);line-height:1.05;text-wrap:balance">Suas lágrimas não passam despercebidas.</h2>
+    <p data-reveal="" style="margin:0;font-size:17px;line-height:1.65;text-align:justify;hyphens:auto">Se o coração está pesado, existe descanso. Deus se aproxima de quem está ferido e oferece um alívio que nenhuma pessoa consegue dar.</p>
+    <figure data-reveal="" style="margin:0;border-top:1px solid var(--color-accent-300);padding-top:20px;display:flex;flex-direction:column;gap:12px">
+      <blockquote style="margin:0;font-family:var(--font-heading);font-style:italic;font-size:26px;line-height:1.3;text-wrap:pretty">“Venham a mim, todos os que estão cansados e sobrecarregados, e eu darei descanso a vocês.”</blockquote>
+      <figcaption style="margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">Mateus 11:28</figcaption>
+    </figure>
+    <figure data-reveal="" style="margin:0;border-top:1px solid var(--color-accent-300);padding-top:20px;display:flex;flex-direction:column;gap:12px">
+      <blockquote style="margin:0;font-family:var(--font-heading);font-style:italic;font-size:26px;line-height:1.3;text-wrap:pretty">“O Senhor está perto dos que têm o coração quebrantado e salva os de espírito abatido.”</blockquote>
+      <figcaption style="margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">Salmos 34:18</figcaption>
+    </figure>
+  </section>
+
+  <section data-screen-label="03 Cura" style="border-top:1px solid var(--color-divider);padding:64px 0 72px;display:flex;flex-direction:column;gap:28px">
+    <div data-reveal="" style="display:flex;align-items:baseline;gap:14px">
+      <span style="font-family:var(--font-heading);font-size:20px;color:var(--color-accent)">III</span>
+      <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">Cura</span>
+    </div>
+    <h2 data-reveal="" style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:clamp(36px,10vw,48px);line-height:1.05;text-wrap:balance">Há restauração para você.</h2>
+    <p data-reveal="" style="margin:0;font-size:17px;line-height:1.65;text-align:justify;hyphens:auto">Para o corpo, para a mente e para as memórias que ainda doem. O mesmo Deus que criou você sabe restaurar o que se partiu.</p>
+    <figure data-reveal="" style="margin:0;border-top:1px solid var(--color-accent-300);padding-top:20px;display:flex;flex-direction:column;gap:12px">
+      <blockquote style="margin:0;font-family:var(--font-heading);font-style:italic;font-size:26px;line-height:1.3;text-wrap:pretty">“Só ele cura os de coração quebrantado e cuida das suas feridas.”</blockquote>
+      <figcaption style="margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">Salmos 147:3</figcaption>
+    </figure>
+    <figure data-reveal="" style="margin:0;border-top:1px solid var(--color-accent-300);padding-top:20px;display:flex;flex-direction:column;gap:12px">
+      <blockquote style="margin:0;font-family:var(--font-heading);font-style:italic;font-size:26px;line-height:1.3;text-wrap:pretty">“O castigo que nos trouxe paz estava sobre ele, e pelas suas feridas fomos curados.”</blockquote>
+      <figcaption style="margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">Isaías 53:5</figcaption>
+    </figure>
+  </section>
+
+  <section data-screen-label="04 Esperança" style="border-top:1px solid var(--color-divider);padding:64px 0 80px;display:flex;flex-direction:column;gap:28px">
+    <div data-reveal="" style="display:flex;align-items:baseline;gap:14px">
+      <span style="font-family:var(--font-heading);font-size:20px;color:var(--color-accent)">IV</span>
+      <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">Esperança</span>
+    </div>
+    <h2 data-reveal="" style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:clamp(36px,10vw,48px);line-height:1.05;text-wrap:balance">Você é amado e tem um futuro.</h2>
+    <p data-reveal="" style="margin:0;font-size:17px;line-height:1.65;text-align:justify;hyphens:auto">Nada do que aconteceu até aqui diminui o amor de Deus por você. Ele já deu o maior presente e continua escrevendo a sua história.</p>
+    <figure data-reveal="" style="margin:0;border-top:1px solid var(--color-accent-300);padding-top:20px;display:flex;flex-direction:column;gap:12px">
+      <blockquote style="margin:0;font-family:var(--font-heading);font-style:italic;font-size:26px;line-height:1.3;text-wrap:pretty">“Porque Deus tanto amou o mundo que deu o seu Filho Unigênito, para que todo o que nele crer não pereça, mas tenha a vida eterna.”</blockquote>
+      <figcaption style="margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">João 3:16</figcaption>
+    </figure>
+    <figure data-reveal="" style="margin:0;border-top:1px solid var(--color-accent-300);padding-top:20px;display:flex;flex-direction:column;gap:12px">
+      <blockquote style="margin:0;font-family:var(--font-heading);font-style:italic;font-size:26px;line-height:1.3;text-wrap:pretty">“Porque sou eu que conheço os planos que tenho para vocês”, diz o Senhor, “planos de fazê-los prosperar e não de causar dano, planos de dar a vocês esperança e um futuro.”</blockquote>
+      <figcaption style="margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">Jeremias 29:11</figcaption>
+    </figure>
+  </section>
+</main>
+
+<section data-screen-label="05 Propósito" style="background:#1f1d1c;color:#f3f2f2;position:relative;overflow:hidden">
+  <div data-parallax="" style="position:absolute;right:-24px;top:24px;font-family:var(--font-heading);font-weight:400;font-size:260px;line-height:1;color:transparent;-webkit-text-stroke:1px #7d5411;pointer-events:none">V</div>
+  <div style="max-width:600px;margin:0 auto;padding:88px 24px 96px;display:flex;flex-direction:column;gap:32px;position:relative">
+    <span data-reveal="" style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#e1ad66">Propósito</span>
+    <p data-reveal="" style="margin:0;font-size:17px;line-height:1.65;color:#d7d3d3;text-align:justify;hyphens:auto">Você não está aqui por acaso. Os talentos, a história e até as lutas que você enfrentou podem ser usados por Deus.</p>
+    <figure data-reveal="" style="margin:0;border-top:1px solid #5a3b0a;padding-top:20px;display:flex;flex-direction:column;gap:12px">
+      <blockquote style="margin:0;font-family:var(--font-heading);font-style:italic;font-size:24px;line-height:1.3;color:#eae7e7;text-wrap:pretty">“Cada um exerça o dom que recebeu para servir os outros, administrando fielmente a graça de Deus em suas múltiplas formas.”</blockquote>
+      <figcaption style="margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#e1ad66">1 Pedro 4:10</figcaption>
+    </figure>
+    <p data-split="" style="margin:24px 0 0;font-family:var(--font-heading);font-weight:400;font-size:clamp(36px,10.5vw,52px);line-height:1.08;letter-spacing:-.015em;text-wrap:balance">Use aquilo que Deus te capacitou para glorificar o nome dEle e prosperar além do que pode imaginar.</p>
+    <figure data-reveal="" style="margin:0;display:flex;flex-direction:column;gap:10px">
+      <blockquote style="margin:0;font-family:var(--font-heading);font-style:italic;font-size:20px;line-height:1.35;color:#bab6b6;text-wrap:pretty">“Àquele que é capaz de fazer infinitamente mais do que tudo o que pedimos ou pensamos, de acordo com o seu poder que atua em nós.”</blockquote>
+      <figcaption style="margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#e1ad66">Efésios 3:20</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section data-screen-label="06 Autorização" style="max-width:600px;margin:0 auto;padding:72px 24px 40px">
+  <div style="border:1px solid var(--color-divider);border-radius:4px;padding:32px 24px;display:flex;flex-direction:column;gap:20px;background:var(--color-neutral-100)">
+    <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">Antes de você ir</span>
+    <h2 style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:34px;line-height:1.1;text-wrap:balance">Podemos usar a sua imagem?</h2>
+    <p style="margin:0;font-size:16px;line-height:1.6;color:var(--color-neutral-800);text-wrap:pretty">O drone registra fotos e vídeos durante esta ação. Você autoriza o uso da sua imagem nas publicações do Instagram <a href="https://instagram.com/_hrdrone" target="_blank" rel="noopener">@_hrdrone</a>?</p>
+
+    <sc-if value="{{ consentNone }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+        <button onClick="{{ onYes }}" style="min-height:52px;border:1px solid var(--color-accent);border-radius:4px;background:transparent;color:var(--color-accent-800);font-family:var(--font-heading);font-weight:600;font-size:20px;cursor:pointer;transition:background .2s" style-hover="background:var(--color-accent-100)" style-active="background:var(--color-accent-200)">Sim, eu autorizo</button>
+        <button onClick="{{ onNo }}" style="min-height:52px;border:1px solid transparent;border-radius:4px;background:transparent;color:var(--color-neutral-700);font-family:var(--font-heading);font-weight:600;font-size:18px;cursor:pointer;transition:background .2s" style-hover="background:var(--color-neutral-200)" style-active="background:var(--color-neutral-300)">Não autorizo</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ consentYes }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;border-top:1px solid var(--color-accent-300);padding-top:28px">
+        <div ref="{{ thumbRef }}" style="width:96px;height:96px;border:1px solid var(--color-accent);border-radius:50%;display:flex;align-items:center;justify-content:center">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#a06f24" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"></path><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"></path></svg>
+        </div>
+        <p style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:30px;line-height:1.15;text-wrap:balance">Obrigado! Agora olhe para o drone e faça um joia.</p>
+        <p style="margin:0;font-size:14px;color:var(--color-neutral-700)">Fique de olho no <a href="https://instagram.com/_hrdrone" target="_blank" rel="noopener">@_hrdrone</a> para ver o registro.</p>
+        <button onClick="{{ onReset }}" style="border:0;background:transparent;color:var(--color-neutral-700);font-family:var(--font-body);font-size:13px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:8px">Mudar minha resposta</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ consentNo }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--color-divider);padding-top:24px">
+        <p style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:26px;line-height:1.2">Tudo bem, respeitamos a sua decisão.</p>
+        <p style="margin:0;font-size:15px;line-height:1.6;color:var(--color-neutral-700)">Sua imagem não será publicada. Que estas palavras acompanhem você hoje.</p>
+        <button onClick="{{ onReset }}" style="align-self:flex-start;border:0;background:transparent;color:var(--color-neutral-700);font-family:var(--font-body);font-size:13px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:8px 0">Mudar minha resposta</button>
+      </div>
+    </sc-if>
+  </div>
+</section>
+
+<footer style="max-width:600px;margin:0 auto;padding:24px 24px calc(40px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:8px;font-size:12px;color:var(--color-neutral-700)">
+  <div style="height:1px;background:var(--color-divider);margin-bottom:12px"></div>
+  <a href="https://instagram.com/_hrdrone" target="_blank" rel="noopener" style="font-family:var(--font-heading);font-weight:600;font-size:20px;text-decoration:none">@_hrdrone</a>
+  <span>Textos bíblicos: Nova Versão Internacional (NVI).</span>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;showIntro&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;},&quot;rememberConsent&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;}}">
+class Component extends DCLogic {
+  state = { consent: null, splash: 'gone' };
+  rootRef = React.createRef();
+  thumbRef = React.createRef();
+  timers = [];
+
+  componentDidMount() {
+    let c = null, seen = false;
+    const remember = this.props.rememberConsent ?? true;
+    try { if (remember) c = localStorage.getItem('hrdrone_consent'); } catch (e) {}
+    try { seen = sessionStorage.getItem('hrdrone_intro') === '1'; } catch (e) {}
+    const intro = (this.props.showIntro ?? true) && !seen;
+    this.setState({ consent: c, splash: intro ? 'show' : 'gone' });
+    if (intro) {
+      try { sessionStorage.setItem('hrdrone_intro', '1'); } catch (e) {}
+      this.timers.push(setTimeout(() => this.closeSplash(), 2600));
+    }
+    this.waitLibs(0);
+  }
+
+  componentWillUnmount() {
+    this.timers.forEach(clearTimeout);
+    if (this.ctx) this.ctx.revert();
+    if (this.lenis) this.lenis.destroy();
+  }
+
+  componentDidUpdate() {
+    if (this._lastConsent !== this.state.consent) {
+      this._lastConsent = this.state.consent;
+      if (this.state.consent === 'yes') this.animThumb();
+      if (window.ScrollTrigger) setTimeout(() => window.ScrollTrigger.refresh(), 50);
+    }
+  }
+
+  closeSplash = () => {
+    if (this.state.splash !== 'show') return;
+    this.setState({ splash: 'hide' });
+    this.timers.push(setTimeout(() => this.setState({ splash: 'gone' }), 700));
+  };
+
+  waitLibs(n) {
+    if (window.gsap && window.ScrollTrigger) {
+      try { this.initMotion(); } catch (e) { console.warn('motion init: ' + (e && e.message)); }
+      return;
+    }
+    if (n < 60) this.timers.push(setTimeout(() => this.waitLibs(n + 1), 100));
+  }
+
+  reduced() { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+  initMotion() {
+    if (this.reduced()) return;
+    const gsap = window.gsap, ST = window.ScrollTrigger;
+    gsap.registerPlugin(ST);
+    if (window.SplitText) gsap.registerPlugin(window.SplitText);
+    if (window.Lenis && !this.lenis) {
+      this.lenis = new window.Lenis({ autoRaf: true });
+      this.lenis.on('scroll', ST.update);
+    }
+    const root = this.rootRef.current;
+    if (!root) return;
+    const introDelay = this.state.splash === 'show' ? 2.9 : 0.2;
+    this.ctx = gsap.context(() => {
+      root.querySelectorAll('[data-reveal]').forEach(el => {
+        gsap.from(el, { y: 28, opacity: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
+      });
+      root.querySelectorAll('[data-split]').forEach((el, i) => {
+        if (!window.SplitText) return;
+        let s;
+        try { s = new window.SplitText(el, { type: 'lines', mask: 'lines' }); } catch (e) { return; }
+        (s.masks || []).forEach(m => { m.style.paddingBottom = '0.2em'; m.style.marginBottom = '-0.2em'; });
+        gsap.from(s.lines, {
+          yPercent: 120, duration: 1.1, stagger: 0.12, ease: 'power4.out',
+          onComplete: () => { try { s.revert(); } catch (e) {} },
+          delay: i === 0 ? introDelay : 0,
+          scrollTrigger: i === 0 ? undefined : { trigger: el, start: 'top 85%', once: true }
+        });
+      });
+      root.querySelectorAll('[data-parallax]').forEach(el => {
+        gsap.to(el, { yPercent: -35, ease: 'none', scrollTrigger: { trigger: el.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
+      });
+    }, root);
+    if (this.state.consent === 'yes') this.animThumb();
+  }
+
+  animThumb() {
+    const el = this.thumbRef.current, gsap = window.gsap;
+    if (!el || !gsap || this.reduced()) return;
+    gsap.killTweensOf(el);
+    gsap.fromTo(el, { scale: 0, rotate: -35 }, { scale: 1, rotate: 0, duration: 0.9, ease: 'back.out(2.2)' });
+    gsap.to(el, { rotate: -10, y: -4, yoyo: true, repeat: -1, duration: 0.7, ease: 'sine.inOut', delay: 0.9 });
+  }
+
+  setConsent(v) {
+    try {
+      if (v == null) localStorage.removeItem('hrdrone_consent');
+      else if (this.props.rememberConsent ?? true) localStorage.setItem('hrdrone_consent', v);
+    } catch (e) {}
+    this.setState({ consent: v });
+  }
+
+  renderVals() {
+    const { consent, splash } = this.state;
+    return {
+      rootRef: this.rootRef,
+      thumbRef: this.thumbRef,
+      splashShow: splash !== 'gone',
+      splashOpacity: splash === 'show' ? 1 : 0,
+      closeSplash: this.closeSplash,
+      consentNone: consent == null,
+      consentYes: consent === 'yes',
+      consentNo: consent === 'no',
+      onYes: () => this.setConsent('yes'),
+      onNo: () => this.setConsent('no'),
+      onReset: () => this.setConsent(null)
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="stylesheet" href="_ds/organic-ac698d38-6835-4792-9e19-fb08441ba6a9/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<style>
+html,body{margin:0;background:#2e2b25;-webkit-text-size-adjust:100%}
+html.lenis,html.lenis body{height:auto}
+a{color:inherit;text-underline-offset:3px}
+a:hover{color:#b2622d}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" lang="pt-BR" style="min-height:100svh;background:#f5ead8;color:#201e1d;font-family:var(--font-body);overflow-x:hidden">
+
+<sc-if value="{{ splashShow }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeSplash }}" style="position:fixed;inset:0;z-index:60;background:#2e2b25;color:#f5ead8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;padding:32px;text-align:center;transition:opacity .7s ease;opacity:{{ splashOpacity }};cursor:pointer;overflow:hidden">
+    <div ref="{{ splashSunRef }}" style="width:140px;height:140px;border-radius:50%;background:#d67f48"></div>
+    <p style="margin:0;font-family:var(--font-heading);font-size:38px;line-height:1.08;max-width:11ch;text-wrap:balance">Uma palavra do céu para você</p>
+    <p style="margin:0;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#c0b6a5">Toque para continuar</p>
+  </div>
+</sc-if>
+
+<sc-if value="{{ toastShow }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:70;background:#201e1d;color:#f5ead8;padding:14px 22px;border-radius:999px;font-weight:600;font-size:15px;box-shadow:var(--shadow-lg);white-space:nowrap">{{ toast }}</div>
+</sc-if>
+
+<div ref="{{ progressRef }}" style="position:fixed;left:0;top:0;right:0;height:4px;background:#d67f48;transform-origin:0 50%;transform:scaleX(0);z-index:55;pointer-events:none"></div>
+
+<header data-screen-label="01 Abertura" style="min-height:100svh;background:#2e2b25;color:#f5ead8;position:relative;overflow:hidden;display:flex;flex-direction:column">
+  <div ref="{{ sunRef }}" style="position:absolute;right:clamp(-420px,-38vw,-140px);bottom:clamp(-300px,-22vw,-90px);width:clamp(420px,110vw,860px);height:clamp(420px,110vw,860px);border-radius:50%;background:#d67f48;pointer-events:none"></div>
+  <div data-parallax="" style="position:absolute;left:-60px;top:22svh;width:clamp(150px,16vw,260px);height:clamp(150px,16vw,260px);border-radius:50%;background:#728157;pointer-events:none"></div>
+  <div ref="{{ heroRef }}" style="position:relative;max-width:1180px;width:100%;margin:0 auto;padding:calc(18px + env(safe-area-inset-top)) clamp(24px,5vw,64px) calc(28px + env(safe-area-inset-bottom));flex:1;display:flex;flex-direction:column;box-sizing:border-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+      <a href="https://instagram.com/_hrdrone" target="_blank" rel="noopener" style="text-decoration:none;font-weight:700;font-size:14px;padding:8px 14px;border-radius:999px;background:rgba(245,234,216,.12);color:#f5ead8">@_hrdrone</a>
+      <span style="font-weight:700;font-size:12px;letter-spacing:.12em;color:#c0b6a5">NTLH</span>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:22px;padding:48px 0">
+      <span style="align-self:flex-start;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;border-radius:999px;background:#f5ead8;color:#2e2b25">Você escaneou o QR do drone</span>
+      <h1 data-split="" style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:clamp(54px,10vw,150px);line-height:.98;letter-spacing:-.01em;max-width:11ch;text-wrap:balance">Deus tem uma palavra para você hoje.</h1>
+      <p data-reveal="" style="margin:0;font-size:clamp(18px,1.6vw,22px);line-height:1.55;max-width:30ch;color:#eee7db;text-wrap:pretty">Ela desceu do céu até as suas mãos. Separe dois minutos e leia com calma.</p>
+    </div>
+    <a href="#palavra" onClick="{{ jump }}" data-target="palavra" style="align-self:flex-start;display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:15px;padding:14px 20px;border-radius:999px;background:#201e1d;color:#f5ead8">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg>
+      <span>Ver minha palavra</span>
+    </a>
+  </div>
+</header>
+
+<section id="palavra" data-screen-label="02 Palavra sorteada" style="background:#f5ead8;padding:clamp(72px,10vw,140px) clamp(20px,5vw,64px) clamp(56px,8vw,120px)">
+  <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(28px,5vw,72px);align-items:center">
+    <div style="display:flex;flex-direction:column;gap:24px;padding:0 4px">
+      <h2 data-split="" style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:clamp(40px,6vw,84px);line-height:1;text-wrap:balance">Sua palavra de agora</h2>
+      <p data-reveal="" style="margin:0;font-weight:700;font-size:15px;color:#645c50">O que você precisa ouvir hoje?</p>
+      <div data-stagger="" style="display:flex;flex-wrap:wrap;gap:8px">
+        <button onClick="{{ jump }}" data-target="encorajamento" style="min-height:44px;padding:0 18px;border:0;border-radius:999px;background:#d67f48;color:#201e1d;font-family:var(--font-body);font-weight:700;font-size:15px;cursor:pointer" style-active="background:#b2622d">Encorajamento</button>
+        <button onClick="{{ jump }}" data-target="consolo" style="min-height:44px;padding:0 18px;border:0;border-radius:999px;background:#8fa073;color:#201e1d;font-family:var(--font-body);font-weight:700;font-size:15px;cursor:pointer" style-active="background:#728157">Consolo</button>
+        <button onClick="{{ jump }}" data-target="cura" style="min-height:44px;padding:0 18px;border:0;border-radius:999px;background:#ebddc5;color:#201e1d;font-family:var(--font-body);font-weight:700;font-size:15px;cursor:pointer" style-active="background:#dcd3c4">Cura</button>
+        <button onClick="{{ jump }}" data-target="esperanca" style="min-height:44px;padding:0 18px;border:0;border-radius:999px;background:#2e2b25;color:#f5ead8;font-family:var(--font-body);font-weight:700;font-size:15px;cursor:pointer" style-active="background:#474238">Esperança</button>
+        <button onClick="{{ jump }}" data-target="amor" style="min-height:44px;padding:0 18px;border:0;border-radius:999px;background:#ffc6a5;color:#201e1d;font-family:var(--font-body);font-weight:700;font-size:15px;cursor:pointer" style-active="background:#f6a06b">Amor de Deus</button>
+        <button onClick="{{ jump }}" data-target="salvacao" style="min-height:44px;padding:0 18px;border:0;border-radius:999px;background:#56633f;color:#f5ead8;font-family:var(--font-body);font-weight:700;font-size:15px;cursor:pointer" style-active="background:#3d472b">Salvação</button>
+        <button onClick="{{ jump }}" data-target="proposito" style="min-height:44px;padding:0 18px;border:2px solid #201e1d;border-radius:999px;background:transparent;color:#201e1d;font-family:var(--font-body);font-weight:700;font-size:15px;cursor:pointer" style-active="background:#eee7db">Propósito</button>
+      </div>
+    </div>
+    <div data-card="" style="background:#56633f;color:#f5ead8;border-radius:28px;padding:36px 26px 26px;display:flex;flex-direction:column;gap:28px;position:relative;overflow:hidden">
+      <div style="position:absolute;right:-50px;top:-50px;width:160px;height:160px;border-radius:50%;background:#728157"></div>
+      <div ref="{{ verseRef }}" style="position:relative;display:flex;flex-direction:column;gap:18px;min-height:220px">
+        <span style="font-family:var(--font-heading);font-size:72px;line-height:.6;color:#ccdbb2;height:34px">“</span>
+        <p style="margin:0;font-size:24px;line-height:1.38;font-weight:600;text-wrap:pretty">{{ verse.t }}</p>
+        <span style="font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:#e1eecc">{{ verse.r }}</span>
+      </div>
+      <div style="position:relative;display:flex;flex-wrap:wrap;gap:10px">
+        <button onClick="{{ shuffle }}" style="display:flex;align-items:center;gap:8px;min-height:50px;padding:0 22px;border:0;border-radius:999px;background:#f5ead8;color:#2e2b25;font-family:var(--font-body);font-weight:700;font-size:16px;cursor:pointer" style-hover="background:#ffe1d0" style-active="background:#ffc6a5">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>
+          <span>Outra palavra</span>
+        </button>
+        <button onClick="{{ shareCurrent }}" style="display:flex;align-items:center;gap:8px;min-height:50px;padding:0 22px;border:2px solid #ccdbb2;border-radius:999px;background:transparent;color:#f5ead8;font-family:var(--font-body);font-weight:700;font-size:16px;cursor:pointer" style-hover="background:#3d472b" style-active="background:#272e1b">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>
+          <span>Compartilhar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="encorajamento" data-screen-label="03 Encorajamento" style="background:#d67f48;color:#201e1d;padding:clamp(96px,12vw,170px) clamp(24px,5vw,64px);position:relative;overflow:hidden">
+  <div data-parallax="" style="position:absolute;right:-90px;top:-70px;width:clamp(280px,72vw,532px);height:clamp(280px,72vw,532px);border-radius:50%;background:#f6a06b"></div>
+  <div style="position:relative;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(24px,5vw,80px);align-items:center">
+    <h2 data-split="" style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:clamp(46px,7.4vw,104px);line-height:.98;text-wrap:balance">Não desista agora.</h2>
+    <div style="display:flex;flex-direction:column;gap:24px">
+    <p data-reveal="" style="margin:0;font-size:clamp(18px,1.5vw,21px);line-height:1.6;max-width:36ch;text-wrap:pretty">Talvez você esteja cansado de tentar. Deus não pede que você seja forte sozinho. Ele promete estar com você em cada passo.</p>
+    <figure data-card="" style="margin:8px 0 0;background:#f5ead8;border-radius:28px;padding:28px 24px 20px;display:flex;flex-direction:column;gap:14px">
+      <blockquote style="margin:0;font-size:clamp(22px,1.9vw,27px);line-height:1.4;font-weight:600;text-wrap:pretty">“Seja forte e corajoso! Não fique desanimado, nem tenha medo, porque eu, o Senhor, seu Deus, estarei com você em qualquer lugar para onde você for!”</blockquote>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <figcaption style="font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:#8c491a">Josué 1:9</figcaption>
+        <button onClick="{{ shareFromEl }}" aria-label="Compartilhar versículo" style="width:44px;height:44px;flex:none;border:0;border-radius:50%;background:#ebddc5;color:#201e1d;display:flex;align-items:center;justify-content:center;cursor:pointer" style-active="background:#dcd3c4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg></button>
+      </div>
+    </figure>
+    </div>
+  </div>
+</section>
+
+<section id="consolo" data-screen-label="04 Consolo" style="background:#8fa073;color:#201e1d;padding:clamp(96px,12vw,170px) clamp(24px,5vw,64px);position:relative;overflow:hidden">
+  <div data-parallax="" style="position:absolute;left:-100px;bottom:-60px;width:clamp(260px,67vw,494px);height:clamp(260px,67vw,494px);border-radius:50%;background:#aebf92"></div>
+  <div style="position:relative;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(24px,5vw,80px);align-items:center">
+    <h2 data-split="" style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:clamp(46px,7.4vw,104px);line-height:.98;text-wrap:balance">Suas lágrimas não passam despercebidas.</h2>
+    <div style="display:flex;flex-direction:column;gap:24px">
+    <p data-reveal="" style="margin:0;font-size:clamp(18px,1.5vw,21px);line-height:1.6;max-width:36ch;text-wrap:pretty">Se o coração está pesado, existe descanso. Deus se aproxima de quem está ferido e oferece um alívio que ninguém mais consegue dar.</p>
+    <figure data-card="" style="margin:8px 0 0;background:#f5ead8;border-radius:28px;padding:28px 24px 20px;display:flex;flex-direction:column;gap:14px">
+      <blockquote style="margin:0;font-size:clamp(22px,1.9vw,27px);line-height:1.4;font-weight:600;text-wrap:pretty">“Venham a mim, todos vocês que estão cansados de carregar as suas pesadas cargas, e eu lhes darei descanso.”</blockquote>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <figcaption style="font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:#56633f">Mateus 11:28</figcaption>
+        <button onClick="{{ shareFromEl }}" aria-label="Compartilhar versículo" style="width:44px;height:44px;flex:none;border:0;border-radius:50%;background:#ebddc5;color:#201e1d;display:flex;align-items:center;justify-content:center;cursor:pointer" style-active="background:#dcd3c4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg></button>
+      </div>
+    </figure>
+    </div>
+  </div>
+</section>
+
+<section id="cura" data-screen-label="05 Cura" style="background:#f5ead8;color:#201e1d;padding:clamp(96px,12vw,170px) clamp(24px,5vw,64px);position:relative;overflow:hidden">
+  <div data-parallax="" style="position:absolute;right:-70px;top:40px;width:clamp(220px,56vw,418px);height:clamp(220px,56vw,418px);border-radius:50%;background:#ffc6a5"></div>
+  <div style="position:relative;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(24px,5vw,80px);align-items:center">
+    <h2 data-split="" style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:clamp(46px,7.4vw,104px);line-height:.98;text-wrap:balance">Há restauração para você.</h2>
+    <div style="display:flex;flex-direction:column;gap:24px">
+    <p data-reveal="" style="margin:0;font-size:clamp(18px,1.5vw,21px);line-height:1.6;max-width:36ch;text-wrap:pretty">Para o corpo, para a mente e para as memórias que ainda doem. O Deus que criou você sabe restaurar o que se partiu.</p>
+    <figure data-card="" style="margin:8px 0 0;background:#ebddc5;border-radius:28px;padding:28px 24px 20px;display:flex;flex-direction:column;gap:14px">
+      <blockquote style="margin:0;font-size:clamp(22px,1.9vw,27px);line-height:1.4;font-weight:600;text-wrap:pretty">“Nós somos curados pelo castigo que ele sofreu, somos sarados pelos ferimentos que ele recebeu.”</blockquote>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <figcaption style="font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:#8c491a">Isaías 53:5</figcaption>
+        <button onClick="{{ shareFromEl }}" aria-label="Compartilhar versículo" style="width:44px;height:44px;flex:none;border:0;border-radius:50%;background:#f5ead8;color:#201e1d;display:flex;align-items:center;justify-content:center;cursor:pointer" style-active="background:#dcd3c4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg></button>
+      </div>
+    </figure>
+    </div>
+  </div>
+</section>
+
+<section id="esperanca" data-screen-label="06 Esperança" style="background:#2e2b25;color:#f5ead8;padding:clamp(96px,12vw,170px) clamp(24px,5vw,64px);position:relative;overflow:hidden">
+  <div data-parallax="" style="position:absolute;left:0;right:0;margin:0 auto;bottom:-180px;width:clamp(360px,92vw,684px);height:clamp(360px,92vw,684px);border-radius:50%;background:#b2622d"></div>
+  <div style="position:relative;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(24px,5vw,80px);align-items:center;padding-bottom:80px">
+    <h2 data-split="" style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:clamp(46px,7.4vw,104px);line-height:.98;text-wrap:balance">O seu futuro está nas mãos dEle.</h2>
+    <div style="display:flex;flex-direction:column;gap:24px">
+    <p data-reveal="" style="margin:0;font-size:clamp(18px,1.5vw,21px);line-height:1.6;max-width:36ch;color:#eee7db;text-wrap:pretty">Mesmo quando você não enxerga a saída, Deus já conhece o caminho. A sua história ainda não terminou.</p>
+    <figure data-card="" style="margin:8px 0 0;background:#474238;border-radius:28px;padding:28px 24px 20px;display:flex;flex-direction:column;gap:14px">
+      <blockquote style="margin:0;font-size:clamp(22px,1.9vw,27px);line-height:1.4;font-weight:600;text-wrap:pretty">“Só eu conheço os planos que tenho para vocês: prosperidade e não desgraça e um futuro cheio de esperança. Sou eu, o Senhor, quem está falando.”</blockquote>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <figcaption style="font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:#f6a06b">Jeremias 29:11</figcaption>
+        <button onClick="{{ shareFromEl }}" aria-label="Compartilhar versículo" style="width:44px;height:44px;flex:none;border:0;border-radius:50%;background:#645c50;color:#f5ead8;display:flex;align-items:center;justify-content:center;cursor:pointer" style-active="background:#82796a"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg></button>
+      </div>
+    </figure>
+    </div>
+  </div>
+</section>
+
+<section id="amor" data-screen-label="07 Amor de Deus" style="background:#ffc6a5;color:#201e1d;padding:clamp(96px,12vw,170px) clamp(24px,5vw,64px);position:relative;overflow:hidden">
+  <div data-parallax="" style="position:absolute;right:-60px;bottom:-40px;width:clamp(240px,62vw,456px);height:clamp(240px,62vw,456px);border-radius:50%;background:#f6a06b"></div>
+  <div style="position:relative;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(24px,5vw,80px);align-items:center">
+    <h2 data-split="" style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:clamp(46px,7.4vw,104px);line-height:.98;text-wrap:balance">Você é amado do jeito que está.</h2>
+    <div style="display:flex;flex-direction:column;gap:24px">
+    <p data-reveal="" style="margin:0;font-size:clamp(18px,1.5vw,21px);line-height:1.6;max-width:36ch;text-wrap:pretty">Deus não espera você ficar perfeito para amar você. Ele deu o maior presente antes mesmo de você pedir.</p>
+    <figure data-card="" style="margin:8px 0 0;background:#f5ead8;border-radius:28px;padding:28px 24px 20px;display:flex;flex-direction:column;gap:14px">
+      <blockquote style="margin:0;font-size:clamp(22px,1.9vw,27px);line-height:1.4;font-weight:600;text-wrap:pretty">“Porque Deus amou o mundo tanto, que deu o seu único Filho, para que todo aquele que nele crer não morra, mas tenha a vida eterna.”</blockquote>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <figcaption style="font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:#8c491a">João 3:16</figcaption>
+        <button onClick="{{ shareFromEl }}" aria-label="Compartilhar versículo" style="width:44px;height:44px;flex:none;border:0;border-radius:50%;background:#ebddc5;color:#201e1d;display:flex;align-items:center;justify-content:center;cursor:pointer" style-active="background:#dcd3c4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg></button>
+      </div>
+    </figure>
+    </div>
+  </div>
+</section>
+
+<section id="salvacao" data-screen-label="08 Salvação" style="background:#56633f;color:#f5ead8;padding:clamp(96px,12vw,170px) clamp(24px,5vw,64px);position:relative;overflow:hidden">
+  <div data-parallax="" style="position:absolute;left:-80px;top:-60px;width:clamp(240px,62vw,456px);height:clamp(240px,62vw,456px);border-radius:50%;background:#728157"></div>
+  <div style="position:relative;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(24px,5vw,80px);align-items:center">
+    <h2 data-split="" style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:clamp(46px,7.4vw,104px);line-height:.98;text-wrap:balance">A salvação é um presente.</h2>
+    <div style="display:flex;flex-direction:column;gap:24px">
+    <p data-reveal="" style="margin:0;font-size:clamp(18px,1.5vw,21px);line-height:1.6;max-width:36ch;color:#eee7db;text-wrap:pretty">Não precisa merecer nem pagar. Jesus já fez tudo. O que cabe a você é crer e receber.</p>
+    <figure data-card="" style="margin:8px 0 0;background:#3d472b;border-radius:28px;padding:28px 24px 20px;display:flex;flex-direction:column;gap:14px">
+      <blockquote style="margin:0;font-size:clamp(22px,1.9vw,27px);line-height:1.4;font-weight:600;text-wrap:pretty">“Se você disser com a sua boca: ‘Jesus é Senhor’ e crer de coração que Deus ressuscitou Jesus, você será salvo.”</blockquote>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <figcaption style="font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:#ccdbb2">Romanos 10:9</figcaption>
+        <button onClick="{{ shareFromEl }}" aria-label="Compartilhar versículo" style="width:44px;height:44px;flex:none;border:0;border-radius:50%;background:#56633f;color:#f5ead8;display:flex;align-items:center;justify-content:center;cursor:pointer" style-active="background:#728157"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg></button>
+      </div>
+    </figure>
+    </div>
+  </div>
+</section>
+
+<section id="oracao" data-screen-label="09 Oração" style="background:#e1eecc;color:#201e1d;padding:clamp(96px,12vw,170px) clamp(24px,5vw,64px)">
+  <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(28px,5vw,80px);align-items:center">
+    <div style="display:flex;flex-direction:column;gap:24px">
+    <span data-reveal="" style="align-self:flex-start;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;border-radius:999px;background:#56633f;color:#f5ead8">Oração de entrega</span>
+    <h2 data-split="" style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:clamp(42px,6.4vw,92px);line-height:1;text-wrap:balance">Quer falar com Deus agora?</h2>
+    <p data-reveal="" style="margin:0;font-size:18px;line-height:1.6;color:#3d472b">Não existe frase certa. Se fizer sentido para você, diga em voz baixa:</p>
+    <a data-reveal="" href="https://wa.me/5518998104185?text=Ol%C3%A1!%20Escaneei%20o%20QR%20Code%20do%20drone%20e%20fiz%20a%20ora%C3%A7%C3%A3o%20de%20entrega." target="_blank" rel="noopener" style="align-self:flex-start;display:flex;align-items:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;background:#56633f;color:#f5ead8;text-decoration:none;font-weight:700;font-size:16px" style-active="background:#3d472b">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
+      <span>Fiz essa oração</span>
+    </a>
+    </div>
+    <div data-card="" style="background:#f9f4ed;border-radius:28px;padding:clamp(30px,3vw,48px) clamp(24px,3vw,44px);display:flex;flex-direction:column;gap:16px">
+      <p style="margin:0;font-size:clamp(20px,1.8vw,26px);line-height:1.55;font-weight:600;text-wrap:pretty">Senhor Jesus, eu preciso de ti. Entrego nas tuas mãos a minha vida, as minhas dores e os meus sonhos. Perdoa os meus pecados e cura o meu coração. Eu creio que tu morreste e ressuscitaste por mim. A partir de hoje, quero seguir a ti. Amém.</p>
+    </div>
+  </div>
+</section>
+
+<section id="proposito" data-screen-label="10 Propósito" style="background:#201e1d;color:#f5ead8;padding:clamp(104px,13vw,180px) clamp(24px,5vw,64px) clamp(112px,13vw,190px);position:relative;overflow:hidden">
+  <div ref="{{ finalSunRef }}" style="position:absolute;right:-120px;top:-120px;width:clamp(340px,40vw,640px);height:clamp(340px,40vw,640px);border-radius:50%;background:#d67f48"></div>
+  <div data-parallax="" style="position:absolute;left:-50px;bottom:120px;width:120px;height:120px;border-radius:50%;background:#728157"></div>
+  <div style="position:relative;max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:28px">
+    <p data-reveal="" style="margin:0;font-size:18px;line-height:1.6;max-width:32ch;color:#dcd3c4;text-wrap:pretty">Você não está aqui por acaso. Seus talentos, sua história e até as lutas que enfrentou podem ser usados por Deus.</p>
+    <p data-words="" style="margin:16px 0 0;font-family:var(--font-heading);font-weight:400;font-size:clamp(40px,7.2vw,112px);line-height:1.02;max-width:16ch;text-wrap:balance">Use aquilo que Deus te capacitou para glorificar o nome dEle e prosperar além do que pode imaginar.</p>
+    <figure data-reveal="" style="margin:12px 0 0;display:flex;flex-direction:column;gap:12px;max-width:640px">
+      <blockquote style="margin:0;font-size:19px;line-height:1.5;font-weight:600;color:#eee7db;text-wrap:pretty">“Seja dada glória a Deus, o qual, por meio do seu poder que age em nós, pode fazer muito mais do que nós pedimos ou até pensamos!”</blockquote>
+      <figcaption style="font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:#f6a06b">Efésios 3:20</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="autorizacao" data-screen-label="11 Autorização" style="background:#f5ead8;padding:clamp(80px,10vw,140px) 20px clamp(64px,8vw,120px)">
+  <div data-card="" style="max-width:720px;margin:0 auto;background:#ebddc5;border-radius:28px;padding:clamp(36px,4vw,56px) clamp(24px,4vw,56px);display:flex;flex-direction:column;gap:20px">
+    <span style="align-self:flex-start;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;border-radius:999px;background:#201e1d;color:#f5ead8">Antes de você ir</span>
+    <h2 style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:clamp(34px,9vw,44px);line-height:1.05;text-wrap:balance">Podemos usar a sua imagem?</h2>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:#474238;text-wrap:pretty">O drone registra fotos e vídeos desta ação. Você autoriza o uso da sua imagem nas publicações do Instagram <a href="https://instagram.com/_hrdrone" target="_blank" rel="noopener" style="font-weight:700;color:#8c491a">@_hrdrone</a>?</p>
+
+    <sc-if value="{{ consentNone }}" hint-placeholder-val="{{ true }}">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px;margin-top:6px">
+        <button onClick="{{ onYes }}" style="min-height:56px;border:0;border-radius:999px;background:#b2622d;color:#fff;font-family:var(--font-body);font-weight:700;font-size:18px;cursor:pointer" style-hover="background:#8c491a" style-active="background:#643312">Sim, eu autorizo</button>
+        <button onClick="{{ onNo }}" style="min-height:56px;border:2px solid #a19786;border-radius:999px;background:transparent;color:#474238;font-family:var(--font-body);font-weight:700;font-size:17px;cursor:pointer" style-hover="background:#dcd3c4" style-active="background:#c0b6a5">Não autorizo</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ consentYes }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;padding-top:12px">
+        <div ref="{{ thumbRef }}" style="width:132px;height:132px;border-radius:50%;background:#d67f48;color:#201e1d;display:flex;align-items:center;justify-content:center">
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"></path><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"></path></svg>
+        </div>
+        <p style="margin:0;font-family:var(--font-heading);font-size:34px;line-height:1.08;text-wrap:balance">Obrigado! Agora faça um joia para o drone.</p>
+        <p style="margin:0;font-size:15px;color:#645c50">Fique de olho no <a href="https://instagram.com/_hrdrone" target="_blank" rel="noopener" style="font-weight:700;color:#8c491a">@_hrdrone</a> para ver o registro.</p>
+        <button onClick="{{ onReset }}" style="border:0;background:transparent;color:#645c50;font-family:var(--font-body);font-size:14px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:10px">Mudar minha resposta</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ consentNo }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:10px;padding-top:6px">
+        <p style="margin:0;font-family:var(--font-heading);font-size:28px;line-height:1.1">Tudo bem, respeitamos a sua decisão.</p>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#645c50">Sua imagem não será publicada. Que estas palavras acompanhem você hoje.</p>
+        <button onClick="{{ onReset }}" style="align-self:flex-start;border:0;background:transparent;color:#645c50;font-family:var(--font-body);font-size:14px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:10px 0">Mudar minha resposta</button>
+      </div>
+    </sc-if>
+  </div>
+</section>
+
+<footer style="background:#2e2b25;color:#f5ead8;padding:56px clamp(24px,5vw,64px) calc(48px + env(safe-area-inset-bottom))">
+  <div style="max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:22px">
+    <p style="margin:0;font-family:var(--font-heading);font-size:30px;line-height:1.1">Fale com a gente</p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      <a href="https://wa.me/5518998104185?text=Ol%C3%A1!%20Escaneei%20o%20QR%20Code%20do%20drone." target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;min-height:50px;padding:0 20px;border-radius:999px;background:#8fa073;color:#201e1d;text-decoration:none;font-weight:700;font-size:15px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
+        <span>(18) 99810-4185</span>
+      </a>
+      <a href="https://instagram.com/_hrdrone" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;min-height:50px;padding:0 20px;border-radius:999px;background:#d67f48;color:#201e1d;text-decoration:none;font-weight:700;font-size:15px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+        <span>@_hrdrone</span>
+      </a>
+    </div>
+    <p style="margin:12px 0 0;font-size:13px;color:#a19786">Textos bíblicos: Nova Tradução na Linguagem de Hoje (NTLH).</p>
+  </div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;showIntro&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;},&quot;rememberConsent&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;}}">
+const VERSES = [
+  { t: 'Não fique com medo, pois estou com você; não se apavore, pois eu sou o seu Deus. Eu lhe dou forças e o ajudo; eu o protejo com a minha forte mão.', r: 'Isaías 41:10' },
+  { t: 'Com a força que Cristo me dá, posso enfrentar qualquer situação.', r: 'Filipenses 4:13' },
+  { t: 'O Senhor está perto dos que estão desanimados e salva os que perderam a esperança.', r: 'Salmos 34:18' },
+  { t: 'Ele enxugará dos olhos deles todas as lágrimas. Não haverá mais morte, nem tristeza, nem choro, nem dor.', r: 'Apocalipse 21:4' },
+  { t: 'Ele cura os que têm o coração partido e trata dos seus ferimentos.', r: 'Salmos 147:3' },
+  { t: 'Que Deus, que nos dá essa esperança, encha vocês de alegria e de paz, por meio da fé que vocês têm nele.', r: 'Romanos 15:13' },
+  { t: 'Mas Deus nos mostrou o quanto nos ama: Cristo morreu por nós quando ainda vivíamos no pecado.', r: 'Romanos 5:8' },
+  { t: 'Pois pela graça de Deus vocês são salvos por meio da fé. Isso não vem de vocês, mas é um presente dado por Deus.', r: 'Efésios 2:8' },
+  { t: 'Seja forte e corajoso! Não fique desanimado, nem tenha medo, porque eu, o Senhor, seu Deus, estarei com você em qualquer lugar para onde você for!', r: 'Josué 1:9' },
+  { t: 'Venham a mim, todos vocês que estão cansados de carregar as suas pesadas cargas, e eu lhes darei descanso.', r: 'Mateus 11:28' },
+  { t: 'Só eu conheço os planos que tenho para vocês: prosperidade e não desgraça e um futuro cheio de esperança.', r: 'Jeremias 29:11' },
+  { t: 'Porque Deus amou o mundo tanto, que deu o seu único Filho, para que todo aquele que nele crer não morra, mas tenha a vida eterna.', r: 'João 3:16' }
+];
+
+class Component extends DCLogic {
+  state = { consent: null, splash: 'gone', vi: 0, toast: '' };
+  rootRef = React.createRef();
+  thumbRef = React.createRef();
+  verseRef = React.createRef();
+  sunRef = React.createRef();
+  finalSunRef = React.createRef();
+  splashSunRef = React.createRef();
+  progressRef = React.createRef();
+  heroRef = React.createRef();
+  timers = [];
+
+  componentDidMount() {
+    let c = null, seen = false;
+    try { if (this.props.rememberConsent ?? true) c = localStorage.getItem('hrdrone_consent'); } catch (e) {}
+    try { seen = sessionStorage.getItem('hrdrone_intro') === '1'; } catch (e) {}
+    const intro = (this.props.showIntro ?? true) && !seen;
+    this.setState({ consent: c, splash: intro ? 'show' : 'gone', vi: Math.floor(Math.random() * VERSES.length) });
+    if (intro) {
+      try { sessionStorage.setItem('hrdrone_intro', '1'); } catch (e) {}
+      this.timers.push(setTimeout(() => this.closeSplash(), 2600));
+    }
+    this.waitLibs(0);
+  }
+
+  componentWillUnmount() {
+    this.timers.forEach(clearTimeout);
+    if (this.ctx) this.ctx.revert();
+    if (this.raf && window.gsap) window.gsap.ticker.remove(this.raf);
+    if (this.lenis) { this.lenis.destroy(); this.lenis = null; }
+  }
+
+  componentDidUpdate() {
+    if (this._lastConsent !== this.state.consent) {
+      this._lastConsent = this.state.consent;
+      if (this.state.consent === 'yes') this.animThumb();
+      if (window.ScrollTrigger) setTimeout(() => window.ScrollTrigger.refresh(), 60);
+    }
+  }
+
+  reduced() { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+  closeSplash = () => {
+    if (this.state.splash !== 'show') return;
+    this.setState({ splash: 'hide' });
+    this.timers.push(setTimeout(() => this.setState({ splash: 'gone' }), 700));
+  };
+
+  waitLibs(n) {
+    if (window.gsap && window.ScrollTrigger) {
+      try { this.initMotion(); } catch (e) { console.warn('motion: ' + (e && e.message)); }
+      return;
+    }
+    if (n < 60) this.timers.push(setTimeout(() => this.waitLibs(n + 1), 100));
+  }
+
+  initMotion() {
+    if (this.reduced()) return;
+    const gsap = window.gsap, ST = window.ScrollTrigger;
+    gsap.registerPlugin(ST);
+    if (window.SplitText) gsap.registerPlugin(window.SplitText);
+    if (window.Lenis && !this.lenis) {
+      this.lenis = new window.Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 0.9, touchMultiplier: 1.2 });
+      this.lenis.on('scroll', ST.update);
+      this.raf = (t) => this.lenis && this.lenis.raf(t * 1000);
+      gsap.ticker.add(this.raf);
+      gsap.ticker.lagSmoothing(0);
+    }
+    const root = this.rootRef.current;
+    if (!root) return;
+    const intro = this.state.splash === 'show';
+    if (intro && this.splashSunRef.current) {
+      gsap.fromTo(this.splashSunRef.current, { scale: 0 }, { scale: 1, duration: 1.2, ease: 'elastic.out(1,0.6)' });
+    }
+    this.ctx = gsap.context(() => {
+      if (this.progressRef.current) {
+        gsap.to(this.progressRef.current, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: root, start: 'top top', end: 'bottom bottom', scrub: 0.3 } });
+      }
+      if (this.heroRef.current) {
+        gsap.to(this.heroRef.current, { y: -90, opacity: 0.15, ease: 'none', scrollTrigger: { trigger: this.heroRef.current.parentElement, start: 'top top', end: 'bottom top', scrub: true } });
+      }
+      root.querySelectorAll('[data-reveal]').forEach(el => {
+        gsap.from(el, { y: 40, opacity: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 92%', once: true } });
+      });
+      root.querySelectorAll('[data-card]').forEach((el, i) => {
+        gsap.fromTo(el,
+          { y: 140, rotate: i % 2 ? 5 : -5, scale: 0.86, opacity: 0 },
+          { y: 0, rotate: 0, scale: 1, opacity: 1, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 105%', end: 'top 55%', scrub: 0.6 } });
+      });
+      root.querySelectorAll('[data-stagger]').forEach(el => {
+        gsap.from(el.children, { y: 24, opacity: 0, scale: 0.9, duration: 0.6, stagger: 0.06, ease: 'back.out(1.8)', scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
+      });
+      if (window.SplitText) root.querySelectorAll('[data-words]').forEach(el => {
+        let s;
+        try { s = new window.SplitText(el, { type: 'words' }); } catch (e) { return; }
+        const hi = s.words.findIndex(w => w.textContent.trim() === 'prosperar');
+        if (hi >= 0) s.words.slice(hi).forEach(w => { w.style.color = '#f6a06b'; });
+        gsap.fromTo(s.words, { opacity: 0.14, y: 14 }, { opacity: 1, y: 0, stagger: 0.08, ease: 'none', scrollTrigger: { trigger: el, start: 'top 82%', end: 'bottom 50%', scrub: 0.5 } });
+      });
+      root.querySelectorAll('[data-split]').forEach((el, i) => {
+        if (!window.SplitText) return;
+        let s;
+        try { s = new window.SplitText(el, { type: 'lines', mask: 'lines' }); } catch (e) { return; }
+        (s.masks || []).forEach(m => { m.style.paddingBottom = '0.22em'; m.style.marginBottom = '-0.22em'; });
+        gsap.from(s.lines, {
+          yPercent: 120, rotate: 3, duration: 1.1, stagger: 0.12, ease: 'power4.out',
+          delay: i === 0 ? (intro ? 2.9 : 0.15) : 0,
+          scrollTrigger: i === 0 ? undefined : { trigger: el, start: 'top 88%', once: true },
+          onComplete: () => { try { s.revert(); } catch (e) {} }
+        });
+      });
+      root.querySelectorAll('[data-parallax]').forEach(el => {
+        gsap.fromTo(el, { yPercent: 35, scale: 0.55 }, { yPercent: -45, scale: 1.2, ease: 'none', scrollTrigger: { trigger: el.parentElement, start: 'top bottom', end: 'bottom top', scrub: 0.8 } });
+      });
+      if (this.sunRef.current) {
+        gsap.from(this.sunRef.current, { scale: 0.2, yPercent: 40, duration: 1.6, ease: 'power3.out', delay: intro ? 2.7 : 0 });
+        gsap.to(this.sunRef.current, { yPercent: -25, scale: 1.15, ease: 'none', scrollTrigger: { trigger: this.sunRef.current.parentElement, start: 'top top', end: 'bottom top', scrub: true } });
+      }
+      if (this.finalSunRef.current) {
+        gsap.from(this.finalSunRef.current, { scale: 0, ease: 'none', scrollTrigger: { trigger: this.finalSunRef.current.parentElement, start: 'top bottom', end: 'top 30%', scrub: true } });
+      }
+    }, root);
+    if (this.state.consent === 'yes') this.animThumb();
+  }
+
+  animThumb() {
+    const el = this.thumbRef.current, gsap = window.gsap;
+    if (!el || !gsap || this.reduced()) return;
+    gsap.killTweensOf(el);
+    gsap.fromTo(el, { scale: 0, rotate: -40 }, { scale: 1, rotate: 0, duration: 1, ease: 'elastic.out(1,0.5)' });
+    gsap.to(el, { rotate: -12, y: -6, yoyo: true, repeat: -1, duration: 0.6, ease: 'sine.inOut', delay: 1 });
+  }
+
+  shuffle = () => {
+    const next = () => {
+      let n = this.state.vi;
+      while (n === this.state.vi) n = Math.floor(Math.random() * VERSES.length);
+      this.setState({ vi: n });
+    };
+    const el = this.verseRef.current, gsap = window.gsap;
+    if (!el || !gsap || this.reduced()) return next();
+    gsap.to(el, { opacity: 0, y: -16, duration: 0.25, ease: 'power2.in', onComplete: () => {
+      next();
+      gsap.fromTo(el, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' });
+    } });
+  };
+
+  showToast(msg) {
+    this.setState({ toast: msg });
+    clearTimeout(this.toastT);
+    this.toastT = setTimeout(() => this.setState({ toast: '' }), 2200);
+    this.timers.push(this.toastT);
+  }
+
+  async share(text, ref) {
+    const url = location.href.split('#')[0];
+    const body = '“' + text.replace(/^[“"]|[”"]$/g, '') + '” ' + ref + ' (NTLH)';
+    if (navigator.share) {
+      try { await navigator.share({ title: 'Uma palavra para você', text: body, url }); return; } catch (e) { if (e && e.name === 'AbortError') return; }
+    }
+    try { await navigator.clipboard.writeText(body + '\n' + url); this.showToast('Versículo copiado!'); }
+    catch (e) { window.open('https://wa.me/?text=' + encodeURIComponent(body + '\n' + url), '_blank'); }
+  }
+
+  shareCurrent = () => { const v = VERSES[this.state.vi]; this.share(v.t, v.r); };
+
+  shareFromEl = (e) => {
+    const fig = e.currentTarget.closest('figure');
+    if (!fig) return;
+    this.share(fig.querySelector('blockquote').textContent.trim(), fig.querySelector('figcaption').textContent.trim());
+  };
+
+  jump = (e) => {
+    e.preventDefault();
+    const id = e.currentTarget.getAttribute('data-target');
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (this.lenis) this.lenis.scrollTo(el, { duration: 1.6, easing: (t) => 1 - Math.pow(1 - t, 4) });
+    else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
+  };
+
+  setConsent(v) {
+    try {
+      if (v == null) localStorage.removeItem('hrdrone_consent');
+      else if (this.props.rememberConsent ?? true) localStorage.setItem('hrdrone_consent', v);
+    } catch (e) {}
+    this.setState({ consent: v });
+  }
+
+  renderVals() {
+    const { consent, splash, vi, toast } = this.state;
+    return {
+      rootRef: this.rootRef, thumbRef: this.thumbRef, verseRef: this.verseRef,
+      sunRef: this.sunRef, finalSunRef: this.finalSunRef, splashSunRef: this.splashSunRef,
+      progressRef: this.progressRef, heroRef: this.heroRef,
+      splashShow: splash !== 'gone',
+      splashOpacity: splash === 'show' ? 1 : 0,
+      closeSplash: this.closeSplash,
+      verse: VERSES[vi] || VERSES[0],
+      shuffle: this.shuffle, shareCurrent: this.shareCurrent, shareFromEl: this.shareFromEl, jump: this.jump,
+      toast, toastShow: !!toast,
+      consentNone: consent == null, consentYes: consent === 'yes', consentNo: consent === 'no',
+      onYes: () => this.setConsent('yes'),
+      onNo: () => this.setConsent('no'),
+      onReset: () => this.setConsent(null)
+    };
+  }
+}
+</script>
+</body>
+</html>

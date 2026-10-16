@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: theme('fontFamily.display');
+    --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --divider: color-mix(in srgb, theme('colors.ceu.ink') 16%, transparent);
+    /* Largura do Archivo (eixo wdth, 62–125). As animações mexem nesta variável. */
+    --wdth: 112;
+  }
+
+  html {
+    background: theme('colors.ceu.night');
+    -webkit-text-size-adjust: 100%;
+    overflow-x: clip;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  body {
+    margin: 0;
+    background: theme('colors.ceu.bg');
+    color: theme('colors.ceu.ink');
+    font-family: theme('fontFamily.sans');
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  a {
+    color: inherit;
+    text-underline-offset: 3px;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, theme('colors.clay.500') 35%, transparent);
+  }
+
+  :focus {
+    outline: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid theme('colors.clay.500');
+    outline-offset: 3px;
+  }
+
+  /* Títulos com SplitText ficam escondidos até serem divididos (evita o "pisca" antes da animação). */
+  [data-split] {
+    visibility: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-split] {
+      visibility: visible;
+    }
+  }
+}
+
+@layer components {
+  .display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  .display,
+  .display * {
+    font-stretch: calc(var(--wdth) * 1%);
+  }
+
+  .eyebrow {
+    @apply self-start rounded-full px-3.5 py-2 font-mono text-xs font-semibold uppercase tracking-[0.1em];
+  }
+
+  .ref {
+    @apply font-mono text-[13px] font-semibold uppercase tracking-[0.08em];
+  }
+
+  /* Botão pílula. As cores vêm de --pill-bg / --pill-fg / --pill-active (ou de classes). */
+  .pill {
+    @apply inline-flex min-h-[50px] cursor-pointer items-center gap-2.5 rounded-full px-[22px] font-sans text-base font-bold no-underline transition-colors duration-200;
+  }
+
+  .icon-btn {
+    @apply flex size-11 flex-none cursor-pointer items-center justify-center rounded-full border-0 transition-colors duration-200;
+  }
+
+  .section-pad {
+    padding: clamp(96px, 12vw, 170px) theme('spacing.gutter');
+  }
+
+  .split-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
+    align-items: center;
+  }
+
+  .glass {
+    background: color-mix(in srgb, theme('colors.ceu.ink') 72%, transparent);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    backdrop-filter: blur(14px) saturate(1.4);
+  }
+
+  .skip-link {
+    @apply fixed left-3 top-[-80px] z-[100] rounded-full bg-ceu-ink px-4 py-2.5 font-bold text-ceu-bg transition-[top] duration-200;
+  }
+
+  .skip-link:focus-visible {
+    top: calc(12px + var(--safe-top));
+  }
+}
+
+/* Cursor personalizado: só existe com mouse (a classe é posta pelo CustomCursor.vue). */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+
+.cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 90;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  color: #f5ead8;
+}
+
+.cursor-ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 34px;
+  height: 34px;
+  translate: -50% -50%;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  transition:
+    width 0.35s var(--ease-soft),
+    height 0.35s var(--ease-soft),
+    background-color 0.35s var(--ease-soft),
+    opacity 0.25s;
+}
+
+/* Mira: quatro marcas que somem quando o cursor cresce */
+.cursor-ring::before,
+.cursor-ring::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  background: currentColor;
+  transition: opacity 0.2s;
+}
+
+.cursor-ring::before {
+  width: 1.5px;
+  height: 54px;
+  clip-path: polygon(0 0, 100% 0, 100% 28%, 0 28%, 0 72%, 100% 72%, 100% 100%, 0 100%);
+}
+
+.cursor-ring::after {
+  height: 1.5px;
+  width: 54px;
+  clip-path: polygon(0 0, 28% 0, 28% 100%, 72% 100%, 72% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.cursor-ring span {
+  font-family: theme('fontFamily.mono');
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #201e1d;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.cursor.is-active .cursor-ring {
+  width: 76px;
+  height: 76px;
+  background: currentColor;
+}
+
+.cursor.is-active .cursor-ring::before,
+.cursor.is-active .cursor-ring::after {
+  opacity: 0;
+}
+
+.cursor.is-active .cursor-ring span {
+  opacity: 1;
+}
+
+.cursor.is-hidden .cursor-ring {
+  opacity: 0;
+}
